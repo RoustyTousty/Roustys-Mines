@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="Top">
+        <div class="BetDiv">
+            <label id="BetLabel">Bet amount</label>
+            <input type="number" id="BetAmount">
+        </div>
+        <button onclick="game()" id="Start">Start</button>
+        <div class="MoneyDiv">
+            <label id="MoneyLabel">Money</label>
+            <div class="MoneyContainer">
+                <p id="MoneyDolarSign">$</p>
+                <p id="Money"></p>
+            </div>
+        </div>
+    </div>
+    <div id="Game">
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
