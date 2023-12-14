@@ -13,6 +13,7 @@ let gameActive = false
 
 updateMoney()
 generateBoard()
+playSound("music.mp3", 0.2, true)
 
 // Start/Withdraw button
 function game() {
@@ -44,6 +45,7 @@ function start() {
     }
 
     if (betAmount.value > moneyAmount) {
+        playSound("error.mp3", 0.2, false)
         return
     }
 
@@ -62,6 +64,7 @@ function start() {
     updateWithdraw()
     updateMoney()
     generateBoard()
+    playSound("click.mp3", 0.2, false)
 
     // Reset bet value
     betAmount.value = ""
@@ -79,6 +82,7 @@ function withdraw() {
 
     generateBoard()
     updateMoney()
+    playSound("click.mp3", 0.2, false)
 }
 
 // Reset the game on bomb
@@ -101,6 +105,7 @@ function bomb(num) {
 function addMultiplier(num) {
     // Cauculate multiplier
     withdrawMultipliyer += 0.1
+    
     updateWithdraw()
     playSound("correct.wav", 0.4, false)
 
@@ -122,10 +127,12 @@ function updateMoney() {
     Money.innerHTML = moneyAmount.toFixed(2)
 }
 
+// Withdraw earnings
 function updateWithdraw() {
     startButton.innerHTML = "Withdraw: $" + (withdrawAmount * withdrawMultipliyer).toFixed(2) + " (x" + withdrawMultipliyer.toFixed(1) + ")"
 }
 
+// Play a sound from the "sounds" folder
 function playSound(sound, volume, bool) {
     var audio = new Audio('sounds/' + sound);
     audio.volume = volume
