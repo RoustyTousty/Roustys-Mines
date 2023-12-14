@@ -103,26 +103,44 @@ body {
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
 	grid-template-rows: repeat(5, 1fr);
-	grid-gap: 10px;
-    width: 40%;
-    height: 750px;
+    grid-gap: 10px;
+    width: 700px;
+    height: 700px;
     padding: 20px;
     border-radius: 20px;
     background-color: rgba(136, 171, 142, 0.8);
     backdrop-filter: blur(4px);
 }
 #Space {
-    width: 140px;
-    height: 140px;
+    width: 130px;
+    height: 130px;
     border-radius: 5px;
     border: none;
     background-color: rgb(175, 200, 173);
-    background-size: 100px;
+    background-size: 90px;
     background-repeat: no-repeat;
     background-position: center;
 }
 #Space:Hover {
     cursor: pointer;
-    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
     background-color: rgb(194, 222, 192);
+}
+
+#Error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 740px;
+    height: 40px;
+    margin-top: 10px;
+    border-radius: 10px;
+    background-color: rgba(171, 136, 136, 0.8);
+    backdrop-filter: blur(4px);
+}
+#ErrorMessage {
+    width: 100%;
+    font-size: 25px;
+    text-align: center;
+    color: rgb(238, 218, 218);
 }

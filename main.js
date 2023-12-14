@@ -4,16 +4,21 @@ const betAmount = document.getElementById("BetAmount")
 const Money = document.getElementById("Money")
 const gameContainer = document.getElementById("Game")
 const startButton = document.getElementById("Start")
+const errorMessage = document.getElementById("ErrorMessage")
+const errorContainer = document.getElementById("Error")
 
 // Settings
 let moneyAmount = 1000
 let withdrawAmount = 0
 let withdrawMultipliyer = 1
 let gameActive = false
+errorActive = false
 
+// Setup
 updateMoney()
 generateBoard()
 playSound("music.mp3", 0.2, true)
+errorContainer.style.display = "none"
 
 // Start/Withdraw button
 function game() {
@@ -28,6 +33,7 @@ function game() {
 // Squere is clicked (Reveal if bomb has been hit or not)
 function spaceClicked(num) {
     if (gameActive == false) {
+        error("You must place a bet to play the game!")
         return
     }
 
@@ -41,15 +47,17 @@ function spaceClicked(num) {
 function start() {
     // Check if bet is valid
     if ( isNaN(betAmount.value) ) {
+        error("You must place a bet to play the game!")
         return
     }
 
     if (betAmount.value > moneyAmount) {
-        playSound("error.mp3", 0.2, false)
+        error("You can't bet more than what you have!")
         return
     }
 
     if (betAmount.value <= 0) {
+        error("You can't bet zero or less than zero!")
         return
     }
 
@@ -105,7 +113,7 @@ function bomb(num) {
 function addMultiplier(num) {
     // Cauculate multiplier
     withdrawMultipliyer += 0.1
-    
+
     updateWithdraw()
     playSound("correct.wav", 0.4, false)
 
@@ -138,4 +146,19 @@ function playSound(sound, volume, bool) {
     audio.volume = volume
     audio.loop = bool
     audio.play();
+}
+
+function error(message) {
+    if (errorActive == false) {
+        errorActive = true
+
+        errorContainer.style.display = "flex"
+        errorMessage.innerHTML = message
+        playSound("error.mp3", 0.2, false)
+
+        setTimeout(() => {  
+            errorContainer.style.display = "none"
+            errorActive = false
+        }, 2000);
+    }
 }
