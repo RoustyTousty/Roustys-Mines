@@ -1,5 +1,6 @@
 // Init elem
 const betAmount = document.getElementById("BetAmount")
+const bombAmount = document.getElementById("BombAmount")
 
 const Money = document.getElementById("Money")
 const gameContainer = document.getElementById("Game")
@@ -11,14 +12,16 @@ const errorContainer = document.getElementById("Error")
 let moneyAmount = 1000
 let withdrawAmount = 0
 let withdrawMultipliyer = 1
-let gameActive = false
-errorActive = false
+bombAmount.value = 1
 
 // Setup
 updateMoney()
 generateBoard()
 playSound("music.mp3", 0.2, true)
 errorContainer.style.display = "none"
+let gameActive = false
+let errorActive = false
+bombList = []
 
 // Start/Withdraw button
 function game() {
@@ -37,7 +40,7 @@ function spaceClicked(num) {
         return
     }
 
-    if (bombLocation == num) {
+    if (bombList.includes(num) == true) {
         bomb(num)
     }else{
         addMultiplier(num)
@@ -57,7 +60,17 @@ function start() {
     }
 
     if (betAmount.value <= 0) {
-        error("You can't bet zero or less than zero!")
+        error("You can't bet 0 or less than 0!")
+        return
+    }
+
+    if (bombAmount.value <= 0) {
+        error("You can't have 0 or less than 0 bombs!")
+        return
+    }
+
+    if (bombAmount.value >= 25) {
+        error("You can't have 25 or more than 25 bombs!")
         return
     }
 
@@ -66,9 +79,8 @@ function start() {
 
     moneyAmount -= betAmount.value
     withdrawAmount = betAmount.value
-    bombLocation = Math.floor(Math.random() * 25)
-    console.log(betAmount.value, parseInt(betAmount.value))
 
+    generateBombs()
     updateWithdraw()
     updateMoney()
     generateBoard()
@@ -112,7 +124,7 @@ function bomb(num) {
 // Rais the multiplier for withraw
 function addMultiplier(num) {
     // Cauculate multiplier
-    withdrawMultipliyer += 0.1
+    withdrawMultipliyer += 0.1 * bombList.length
 
     updateWithdraw()
     playSound("correct.wav", 0.4, false)
@@ -127,6 +139,20 @@ function generateBoard() {
     gameContainer.innerHTML = ""
     for (let i = 0; i < 25; i++) {
         gameContainer.innerHTML += "<button onclick='spaceClicked(" + i + ")' id='Space'></button>"
+    }
+}
+
+function generateBombs() {
+    bombList = []
+    for (let i = 0; i < parseInt(bombAmount.value); i++) {
+        active = true
+        while(active == true){
+            var num = Math.floor(Math.random() * 25);
+            if (bombList.includes(num) == false) {
+                bombList.push(num);
+                active = false
+            }
+        }
     }
 }
 
