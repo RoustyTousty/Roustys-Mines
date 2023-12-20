@@ -17,7 +17,6 @@ bombAmount.value = 1
 // Setup
 updateMoney()
 generateBoard()
-playSound("music.mp3", 0.2, true)
 errorContainer.style.display = "none"
 let gameActive = false
 let errorActive = false
@@ -188,3 +187,14 @@ function error(message) {
         }, 2000);
     }
 }
+
+
+function sumUpdate(){
+    kpsm = 0
+    for(let i = 0; i < cart.length; i++){
+      sum += cart[i].price * cart[i].quantity
+    }
+    kpsm = sum.toFixed(2)
+}
+
+playSound("music.mp3", 0.2, true)
